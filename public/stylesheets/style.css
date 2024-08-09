@@ -1,0 +1,161 @@
+/* Import Google Fonts */
+@import url("//fonts.googleapis.com/css?family=Roboto|Playfair+Display:400,700");
+
+/* General Styling */
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  color: #333;
+  background-color: #f4f4f4;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Heading and Legends */
+h1, h2, h3, h4, h5, h6, legend {
+  font-family: 'Playfair Display', serif;
+  color: #2c3e50;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #34495e;
+  border-color: #2c3e50;
+}
+
+.navbar-light .navbar-brand {
+  font-family: 'Playfair Display', serif;
+  color: #ecf0f1;
+}
+
+.navbar-light .navbar-toggler {
+  color: #ecf0f1;
+  border-color: #ecf0f1;
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #ecf0f1;
+}
+
+/* Banner Styling */
+.banner {
+  background: url('../stylesheets/traveltext2.jpg') no-repeat center center; /* Updated image URL */
+  background-size: cover;
+  color: #fff;
+  padding: 3rem 1rem; /* Increased padding for more space */
+  text-align: center;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: visible; /* Ensure content is not hidden */
+  height: auto; /* Ensure the height adapts to the content */
+}
+
+.banner h1 {
+  font-size: 3rem; /* Increased font size */
+  line-height: 1.2;
+  margin: 0;
+  padding: 0.5rem 0;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+@media (max-width: 768px) {
+  .banner h1 {
+    font-size: 2.5rem; /* Adjusted for smaller screens */
+    line-height: 1.2;
+  }
+}
+
+/* Card Styling */
+.card {
+  background-color: #ecf0f1;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+/* Update for Facilities Badges */
+.facilities span.badge.badge-warning {
+  margin-right: 4px;
+  background-color: #002f6c !important; /* Navy blue background color */
+  color: #fff !important; /* White text color */
+}
+
+.facilities span.badge.badge-warning i.fa-check {
+  color: #fff !important; /* Ensure check icon is also white */
+}
+
+/* Review Section */
+.review-header {
+  background-color: #3498db;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+}
+
+.review {
+  padding: 1rem;
+  background-color: #ecf0f1;
+  border-bottom: 1px solid #bdc3c7;
+  margin-bottom: 1rem;
+}
+
+/* Button and Badge Styling */
+.badge-default, .btn-primary {
+  background-color: #2980b9;
+  border-color: #1f6396;
+  color: #fff;
+}
+
+h4 a, h4 a:hover {
+  color: #2980b9;
+}
+
+h4 small {
+  font-size: 60%;
+  line-height: 200%;
+  color: #7f8c8d;
+}
+
+h1 small {
+  color: #7f8c8d;
+}
+
+/* Address and Facilities */
+.address {
+  margin-bottom: 1rem;
+}
+
+/* Paragraphs and Links */
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: #2980b9;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #1f6396;
+  text-decoration: underline;
+}
+
+/* Add travel images to specific elements */
+.travel-hero {
+  background: url('../stylesheets/traveltext2.png') no-repeat center center; /* Updated image URL */
+  background-size: cover;
+  height: 300px; /* Adjust height as needed */
+  border-radius: 8px;
+}
+
+.location-map img {
+  border-radius: 8px;
+}

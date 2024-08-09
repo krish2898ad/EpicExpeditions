@@ -1,0 +1,84 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1 GOA
+
+  .row
+    .col-12.col-lg-9
+      .row
+        .col-12.col-md-6
+          p.rating
+            i.fas.fa-star
+            i.fas.fa-star
+            i.fas.fa-star
+            i.fas.fa-star
+            i.far.fa-star
+          p 125 High Street, Reading, RG6 1PS
+
+      .card.card-primary
+        .card-block
+          h2.card-title Availability
+          p.card-text Every weekend
+          p.card-text Friday : 8:00pm
+          p.card-text Monday : 6:00am
+
+      .card.card-primary
+        .card-block
+          h2.card-title Facilities
+          span.badge.badge-warning
+            i.fa.fa-check
+            | &nbsp;Stay
+          | &nbsp;
+          span.badge.badge-warning
+            i.fa.fa-check
+            | &nbsp;Food
+          | &nbsp;
+          span.badge.badge-warning
+            i.fa.fa-check
+            | &nbsp;Transport
+
+      .card.card-primary
+        .card-block
+          h2.card-title Location map
+          img.img-fluid.rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=51.455041,-0.9690884&zoom=17&size=400x350&sensor=false&markers=51.455041,-0.9690884&scale=2&key=<API Key>')
+
+  .row
+    .col-12
+      .card.card-primary.review-card
+        .card-block
+          a.btn.btn-primary.float-right(href='/location/review/new') Write a Review
+          h2.card-title Customer reviews
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+                i.far.fa-star
+              span.reviewAuthor John 
+              small.reviewTimestamp 16 February 2022
+            .col-12
+              p What a great experience.
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor Tony 
+              small.reviewTimestamp 28 January 2023
+            .col-12
+              p Amazing adventure.
+
+    .col-12.col-lg-3
+      p.lead
+        | Goa has amazing beaches and cool adventure activities. It is the best weekend getaway.
+      p
+        | Thank you for joining us on an amazing journey. Please leave a review to help other people just like you.
+      p
+        | For more travel tips and guides, check out our latest articles on Goa.
