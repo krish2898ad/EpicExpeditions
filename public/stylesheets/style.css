@@ -2,10 +2,14 @@
 @import url("//fonts.googleapis.com/css?family=Roboto|Playfair+Display:400,700");
 
 /* General Styling */
+/* General Styling */
 body {
   font-family: "Roboto", Arial, sans-serif;
   color: #333;
-  background-color: #f4f4f4;
+  background-image: url('../stylesheets/bc.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   line-height: 1.6;
   margin: 0;
   padding: 0;
