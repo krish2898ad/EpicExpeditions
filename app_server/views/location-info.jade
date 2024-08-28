@@ -3,7 +3,7 @@ extends layout
 block content
   .row.banner
     .col-12
-      h1 GOA
+      h1
 
   .row
     .col-12.col-lg-9
@@ -15,11 +15,11 @@ block content
             i.fas.fa-star
             i.fas.fa-star
             i.far.fa-star
-          p 125 High Street, Reading, RG6 1PS
 
       .card.card-primary
         .card-block
           h2.card-title Availability
+          p.card-text Organizers: Backpackers & City Freaks
           p.card-text Every weekend
           p.card-text Friday : 8:00pm
           p.card-text Monday : 6:00am
@@ -27,22 +27,18 @@ block content
       .card.card-primary
         .card-block
           h2.card-title Facilities
-          span.badge.badge-warning
+          span.badge.badge-pill.badge-default
             i.fa.fa-check
             | &nbsp;Stay
           | &nbsp;
-          span.badge.badge-warning
+          span.badge.badge-pill.badge-default
             i.fa.fa-check
             | &nbsp;Food
           | &nbsp;
-          span.badge.badge-warning
+          span.badge.badge-pill.badge-default
             i.fa.fa-check
             | &nbsp;Transport
 
-      .card.card-primary
-        .card-block
-          h2.card-title Location map
-          img.img-fluid.rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=51.455041,-0.9690884&zoom=17&size=400x350&sensor=false&markers=51.455041,-0.9690884&scale=2&key=<API Key>')
 
   .row
     .col-12
@@ -56,7 +52,7 @@ block content
                 i.fas.fa-star
                 i.fas.fa-star
                 i.fas.fa-star
-                i.far.fa-star
+                i.fas.fa-star
                 i.far.fa-star
               span.reviewAuthor John 
               small.reviewTimestamp 16 February 2022

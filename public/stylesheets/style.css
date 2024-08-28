@@ -5,9 +5,9 @@
 /* General Styling */
 body {
   font-family: "Roboto", Arial, sans-serif;
-  color: #333;
-  background-image: url('../stylesheets/bc.jpeg');
-  background-size: cover;
+  color: #463f3a;
+  background-image: url('../stylesheets/traveltext2.jpg');
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
   line-height: 1.6;
@@ -18,7 +18,7 @@ body {
 /* Heading and Legends */
 h1, h2, h3, h4, h5, h6, legend {
   font-family: 'Playfair Display', serif;
-  color: #2c3e50;
+  color: #0077b6;
 }
 
 /* Navbar Styling */
@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5, h6, legend {
 
 .navbar-light .navbar-brand {
   font-family: 'Playfair Display', serif;
-  color: #ecf0f1;
+  color: #b3dee2;
 }
 
 .navbar-light .navbar-toggler {
@@ -49,10 +49,10 @@ h1, h2, h3, h4, h5, h6, legend {
 
 /* Banner Styling */
 .banner {
-  background: url('../stylesheets/traveltext2.jpg') no-repeat center center; /* Updated image URL */
-  background-size: cover;
+  background: url('../stylesheets/logo2.jpg') no-repeat center center; /* Updated image URL */
+  background-size: contain;
   color: #fff;
-  padding: 3rem 1rem; /* Increased padding for more space */
+  padding: 6rem 1rem; /* Increased padding for more space */
   text-align: center;
   margin-bottom: 2rem;
   border-radius: 8px;
@@ -77,7 +77,7 @@ h1, h2, h3, h4, h5, h6, legend {
 
 /* Card Styling */
 .card {
-  background-color: #ecf0f1;
+  background-color: #caf0f8;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
