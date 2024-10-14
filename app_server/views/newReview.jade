@@ -1,0 +1,90 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1 Add a Review
+  .row
+    .col-12.col-md-8
+      form(action="/location/review/new", method="post", id="reviewForm", role="form")
+        .form-group.row
+          label.col-10.col-sm-2.col-form-label(for="name") Name
+          .col-12.col-sm-10
+            input#name.form-control(name="name")
+        .form-group.row
+          label.col-10.col-sm-2.col-form-label(for="rating") Rating
+          .col-12.col-sm-2
+            select#rating.form-control.input-sm(name="rating")
+              option(value="5") 5
+              option(value="4") 4
+              option(value="3") 3
+              option(value="2") 2
+              option(value="1") 1
+        .form-group.row
+          label.col-sm-2.col-form-label(for="review") Review
+          .col-sm-10
+            textarea#review.form-control(name="review", rows="5")
+        button.btn.btn-primary.float-right(type="submit") Add my review
+
+  // Toast notification
+  .toast-container
+    .toast(id='toast', style='position: fixed; bottom: 20px; right: 20px; display: none;')
+      .toast-body 
+
+  script.
+    document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+      e.preventDefault(); // Prevent regular form submission
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData); // Convert formData to an object
+
+      try {
+        const response = await fetch('/location/review/new', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          const review = await response.json(); // Get the new review back
+          displayNewReview(review); // Display the new review dynamically
+          this.reset(); // Reset form after submission
+          showToast("Review added successfully!"); // Show success notification
+        }
+      } catch (err) {
+        console.error('Error submitting review:', err);
+      }
+    });
+
+    // Function to append the new review dynamically
+    function displayNewReview(review) {
+      const reviewsContainer = document.querySelector('.reviews-container');
+      const reviewHTML = `
+        <div class="card mb-2">
+          <div class="card-block">
+            <h5>${review.name}</h5>
+            <p>Rating: ${review.rating}</p>
+            <p>${review.review}</p>
+          </div>
+        </div>
+      `;
+      reviewsContainer.innerHTML += reviewHTML;
+    }
+
+    // Function to show the toast notification
+    function showToast(message) {
+      const toast = document.getElementById('travel');
+      toast.querySelector('.toast-body').textContent = message; // Set toast message
+      toast.style.display = 'block'; // Show the toast
+      setTimeout(() => {
+        toast.style.display = 'none'; // Hide after 3 seconds
+      }, 3000);
+    }
+
+    // jQuery, Popper, and Bootstrap
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js', integrity='sha384-KyZXEAg3QhqLMpG8r+Knujsl7/3pRAxzl3hlOY4wX5ZVOJqxjyGO4v4XYKpIhGyV', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJTYAhtQOp6bJTwBi8jVBxZZv+Ce/Ge5jlF6I9j0E69M/65pZ', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy9VjFZx9jOsKcxoipAKDd9kt57NynqE2tMJye6', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', integrity='sha384-DyZv7F5p6LxtxwINQUzGp0r7X1U8OU4BRYFXQElWNGcO0bOj/09nWcFs1zNZs9D', crossorigin='anonymous')

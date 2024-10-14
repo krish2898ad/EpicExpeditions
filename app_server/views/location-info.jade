@@ -1,0 +1,191 @@
+extends layout
+
+block content
+  .row.banner
+  .row
+    .col-12.col-lg-9
+      .row
+        .col-12
+          h1 GOA
+          &nbsp;
+          span.badge.badge-pill.badge-default= 12000
+        .col-12.col-md-6
+          p.rating
+            i.fas.fa-star
+            i.fas.fa-star
+            i.fas.fa-star
+            i.far.fa-star
+            i.far.fa-star
+
+      .card.card-primary
+        .card-block
+          h2.card-title Select Your Travel Date
+          .form-group
+            label(for='travel-date') Choose a Date:
+            input#travel-date.form-control(type='date', min='#{new Date().toISOString().split("T")[0]}')
+          .form-group
+            label(for='num-people') Number of People:
+            input#num-people.form-control(type='number', min='1', value='1')
+          button.btn.btn-primary(onclick='addToCart("goa", "Goa", 12000)') Add to Cart
+
+      // Image Gallery Section
+      .card.card-primary.image-card
+        .card-block
+          h2.card-title Image Gallery
+          .row
+            .col-4
+              img(src='/images/goa1.jpg', alt='Goa Image 1', class='img-fluid')
+            .col-4
+              img(src='/images/goa2.jpg', alt='Goa Image 2', class='img-fluid')
+            .col-4
+              img(src='/images/goa3.jpg', alt='Goa Image 3', class='img-fluid')
+
+      .card.card-primary
+        .card-block
+          h2.card-title Facilities
+          span.badge.badge-pill.badge-default
+            i.fa.fa-check
+            | &nbsp;Stay
+            | &nbsp;
+          span.badge.badge-pill.badge-default
+            i.fa.fa-check
+            | &nbsp;Food
+            | &nbsp;
+          span.badge.badge-pill.badge-default
+            i.fa.fa-check
+            | &nbsp;Transport
+
+      // Customer Reviews Section
+      .card.card-primary.review-card(style="height: 300px; overflow-y: auto; border: 1px solid #ccc;")
+        .card-block
+          a.btn.btn-primary.float-right(href='/location/review/new') Write a Review
+          h2.card-title Customer Reviews
+          .reviews-container(style="color: white;") // Reviews will be dynamically added here
+
+    .col-12.col-lg-3
+      p.lead
+        | Goa has amazing beaches and cool adventure activities. It is the best weekend getaway.
+      p
+        | Thank you for joining us on an amazing journey. Please leave a review to help other people just like you.
+      p
+        | For more travel tips and guides, check out our latest articles on Goa.
+
+  // Toast notification
+  .toast-container
+    .toast(id='toast', style='position: fixed; bottom: 20px; right: 20px; display: none;')
+      .toast-body
+
+  // JavaScript for Add to Cart functionality
+  script.
+    function addToCart(itemId, itemName, itemPrice) {
+      const travelDate = document.getElementById('travel-date').value;
+      const numPeople = document.getElementById('num-people').value; // Get the selected number of people
+
+      if (!travelDate) {
+        alert('Please select a travel date.');
+        return;
+      }
+
+      const item = {
+        id: itemId,
+        name: itemName,
+        price: itemPrice,
+        quantity: numPeople, // Set the number of people as the quantity
+        travelDate: travelDate // Include travel date in the request
+      };
+
+      // Send a POST request to add the item to the cart
+      fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add item to cart');
+        } else {
+          showToast(itemName); // Show toast with item name
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+      function showToast(itemName) {
+        const toast = document.getElementById('toast');
+        toast.querySelector('.toast-body').textContent = `${itemName} added to cart!`; // Set toast message
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000); // Hide after 3 seconds
+      }
+    }
+
+  // JavaScript for dynamically loading reviews
+  script.
+    let currentPage = 1; // Current page number
+    const limit = 5; // Number of reviews to load each time
+    let loading = false; // Flag to prevent multiple loads
+
+    // Function to fetch reviews from the server
+    async function fetchReviews(page) {
+      if (loading) return; // Prevent loading if already in progress
+      loading = true;
+
+      const reviewsContainer = document.querySelector('.reviews-container');
+      const loadingMessage = document.createElement('div');
+      loadingMessage.textContent = 'Loading more reviews...';
+      loadingMessage.style.textAlign = 'center';
+      loadingMessage.style.padding = '10px';
+      reviewsContainer.appendChild(loadingMessage); // Show loading message
+
+      try {
+        const response = await fetch(`/api/reviews?page=${page}&limit=${limit}`);
+        const data = await response.json();
+
+        // Display fetched reviews
+        data.reviews.forEach(review => {
+          displayNewReview(review);
+        });
+
+        currentPage++; // Increment current page for the next load
+      } catch (err) {
+        console.error('Error fetching reviews:', err);
+      } finally {
+        loading = false; // Reset loading flag
+        reviewsContainer.removeChild(loadingMessage); // Hide loading message
+      }
+    }
+
+    // Function to display a review dynamically in the .reviews-container
+    function displayNewReview(review) {
+      if (review && review.name && review.rating !== undefined && review.review) {
+        const reviewsContainer = document.querySelector('.reviews-container');
+        const reviewHTML = `
+          <div class="card mb-2" style="min-height: 150px;">
+            <div class="card-block">
+              <h5 style="color: white;">${review.name}</h5>
+              <p style="color: white;">Rating: ${review.rating}</p>
+              <p style="color: white;">${review.review}</p>
+            </div>
+          </div>
+        `;
+        reviewsContainer.innerHTML += reviewHTML; // Append new review
+      } else {
+        console.warn('Received an undefined or incomplete review:', review);
+      }
+    }
+
+    // Fetch initial set of reviews on page load
+    fetchReviews(currentPage); // Fetch initial reviews
+
+    // Event listener for scrolling to trigger fetching more reviews
+    document.querySelector('.review-card').addEventListener('scroll', () => {
+      const reviewCard = document.querySelector('.review-card');
+      // Load more reviews when the user scrolls close to the bottom of the card
+      if (reviewCard.scrollTop + reviewCard.clientHeight >= reviewCard.scrollHeight - 10) {
+        fetchReviews(currentPage);
+      }
+    });
