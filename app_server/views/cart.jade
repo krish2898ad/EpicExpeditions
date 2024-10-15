@@ -1,13 +1,13 @@
-extends layout  
-include _includes/sharedHTMLfunctions  
+extends layout
+include _includes/sharedHTMLfunctions
 
-block content  
-  .container  
-    .row.banner  
+block content
+  .container
+    .row.banner
       .col-12.text-center 
         h2 
 
-    // Cart Items Section  
+    // Cart Items Section
     .row  
       .col-12  
         .card.mb-3  
@@ -22,7 +22,7 @@ block content
                       p.card-text Quantity: #{item.quantity} 
                       p.card-text Subtotal: ₹#{(item.price * item.quantity).toFixed(2)}  
                       a.btn.btn-danger(href=`/cart/remove/${item.id}`, role='button') Remove  
-                  
+
                 // Total Calculation
                 .total-cost.text-right.mt-3
                   h5 Total Cost: ₹#{cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
@@ -31,9 +31,11 @@ block content
 
           // Place Order Button  
           .text-center  
-            button.btn.btn-success(type='button', onclick='showModal()')  
-              i.fa.fa-shopping-cart.mr-2  
-              | Place Order  
+            form(action='/confirmOrder', method='POST', id='orderForm')  
+              input(type='hidden', name='cartItems', value=`${JSON.stringify(cartItems)}`)  
+              button.btn.btn-success(type='submit')  
+                i.fa.fa-shopping-cart.mr-2  
+                | Place Order  
 
           // Modal for Confirmation  
           .modal.fade#orderModal(tabindex='-1', role='dialog', aria-labelledby='modalTitle', aria-hidden='true')  
@@ -60,11 +62,10 @@ block content
       }  
 
       function placeOrder() {  
-        alert('Order placed successfully!'); // Placeholder for order logic  
-        hideModal(); // Hide the modal after placing order  
-      }  
+        document.getElementById('orderForm').submit(); // Submit the form
+      }
 
-    // jQuery, Popper, and Bootstrap  
+    // jQuery, Popper, and Bootstrap
     script(src='https://code.jquery.com/jquery-3.6.0.min.js', integrity='sha384-KyZXEAg3QhqLMpG8r+Knujsl7/3pRAxzl3hlOY4wX5ZVOJqxjyGO4v4XYKpIhGyV', crossorigin='anonymous')  
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJTYAhtQOp6bJTwBi8jVBxZZv+Ce/Ge5jlF6I9j0E69M/65pZ', crossorigin='anonymous')  
     script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy9VjFZx9jOsKcxoipAKDd9kt57NynqE2tMJye6', crossorigin='anonymous')  

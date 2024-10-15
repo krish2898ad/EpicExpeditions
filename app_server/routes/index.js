@@ -11,7 +11,9 @@ router.get('/Manali', ctrlLocations.Manali);
 router.get('/ooty', ctrlLocations.ooty);
 router.get('/location/review/new', ctrlLocations.addReview);
 
+
 /* Other pages */
+router.get('/about', ctrlOthers.about);
 router.get('/about', ctrlOthers.about);
 
 /* Review routes */
@@ -22,5 +24,9 @@ router.get('/api/reviews', ctrlReviews.getAllReviews); // API route to get all r
 router.get('/cart', ctrlLocations.cart); // Route to view cart
 router.post('/cart/add', ctrlLocations.addToCart); // Route to add item to cart
 router.get('/cart/remove/:id', ctrlLocations.removeFromCart); // Route to remove item from cart
+
+
+router.post('/confirmOrder', ctrlOthers.confirmOrder);
+router.get('/confirmOrder', ctrlOthers.confirmOrder);
 
 module.exports = router; // Export the router

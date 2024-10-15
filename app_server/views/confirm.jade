@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .row.banner
+  .row
+    .col-12.col-lg-9
+      .row
+        .col-12
+          h1 Confirmed Orders
+
+      if error
+        .row
+          .col-12.text-center
+            p.text-danger #{error}
+      else if order && order.length > 0
+        .row
+          .col-12
+            .card
+              .card-body
+                h5 Your Order:
+                ul
+                  each item in order
+                    li
+                      p Item: #{item.name}
+                      p Price: ₹#{item.price}
+                      p Quantity: #{item.quantity}
+                      p Subtotal: ₹#{(item.price * item.quantity).toFixed(2)}
+
+                // Total Cost
+                .total-cost.mt-3.text-right
+                  h5 Total Cost: ₹#{order.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
+      else
+        p.text-center No order data found.

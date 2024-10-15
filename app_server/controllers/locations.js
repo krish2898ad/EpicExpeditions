@@ -75,6 +75,25 @@ const removeFromCart = (req, res) => {
     res.redirect('/cart');
 };
 
+const placeOrder = function(req, res) {
+    // Assuming cartItems holds the order details in the session
+    const cartItems = req.session.cartItems;  // Get the cart items from the session
+
+    if (cartItems && cartItems.length > 0) {
+        // Save the cart items as the order in the session
+        req.session.order = cartItems;
+
+        // Clear the cart after placing the order
+        req.session.cartItems = [];
+
+        // Redirect the user to the confirmation page
+        res.redirect('/confirm');
+    } else {
+        // If no items in the cart, handle the case and redirect back to cart
+        res.redirect('/cart');  // Redirect back to the cart if no items
+    }
+};
+
 module.exports = {
     homelist,
     locationInfo,

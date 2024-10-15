@@ -79,6 +79,11 @@ app.post('/cart/remove/:id', (req, res) => {
     res.redirect('/cart'); // Redirect to the cart view
 });
 
+app.post('/confirmOrder', (req, res) => {
+    const confirmedOrder = JSON.parse(req.body.cartItems); // Parse the submitted cart items
+    res.render('confirm', { order: confirmedOrder }); // Render the confirm.jade view with the order data
+  });
+  
 // Error handler middleware
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
